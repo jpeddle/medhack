@@ -1,3 +1,11 @@
 from django.contrib import admin
+from src.apps.office.models import Doctor, Office
 
-# Register your models here.
+class DoctorAdmin(admin.ModelAdmin):
+    pass
+
+class OfficeAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Doctor, DoctorAdmin)
+admin.site.register(Office, OfficeAdmin)

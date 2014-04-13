@@ -1,8 +1,9 @@
 from datetime import datetime
+from django.conf import settings
 from django.db import models
 import pytz
 
-EASTERN_TIMEZONE = pytz.timezone('US/Eastern')
+TZ = settings.PYTZ_TIMEZONE
 
 class VisitState(models.Model):
     
@@ -34,12 +35,12 @@ class VisitManager(models.Manager):
             'visit': visit,
             'visit_state': visit.visit_state,
             'time_created': visit.last_updated,
-            'time_updated': EASTERN_TIMEZONE.localize(datetime.now())
+            'time_updated': TZ.localize(datetime.now())
         })
 
         visit_state = VisitState.objects.get(pk=visit_state_id)
         visit.visit_state = visit_state
-        visit.last_updated = EASTERN_TIMEZONE.localize(datetime.now())
+        visit.last_updated = TZ.localize(datetime.now())
         visit.save()
 
         return visit
@@ -49,7 +50,7 @@ class Visit(models.Model):
 
     visit_state = models.ForeignKey(to=VisitState)
 
-    last_updated = models.DateTimeField(null=False, blank=False, auto_now=True)
+    last_updated = models.DateTimeField(null=False, blank=False, auto_now=True, db_index=True)
 
     objects = VisitManager()
 

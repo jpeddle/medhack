@@ -25,7 +25,7 @@ urlpatterns = patterns('',
 
     url(r'^patient/insurance/$', 'src.apps.patient.views.insurance_information'),
 
-    url(r'^appointments/(?P<year>\d+)/(?P<month>\d+)/(?P<day>\d+)/$', 'src.apps.schedule.views.get_by_date'),
+    url(r'^appointments/(?P<calendar_id>\d+)/(?P<year>\d+)/(?P<month>\d+)/(?P<day>\d+)/$', 'src.apps.schedule.views.get_by_date'),
 
     url(r'^appointments/notify-daily/$', 'src.apps.schedule.views.notify_daily'),
 

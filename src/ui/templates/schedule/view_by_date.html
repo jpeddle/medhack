@@ -8,11 +8,13 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-heading">
+            <h1>Appointments for Dr. {{ calendar.doctor.last_name }}, {{ date|date:"m/d/Y" }}</h1>
+
+            <h3 class="page-heading">
                 <span class="first">Patient</span>
 {#                <span>Visit Time</span>#}
                 <span>Status</span>
-            </h1>
+            </h3>
 
 
             <ul class="patients-list list-unstyled">

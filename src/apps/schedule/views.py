@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from src.apps.office_admin.models import BillingAddressForm, InsuranceForm
-from src.apps.schedule.models import Appointment
+from src.apps.schedule.models import Appointment, Calendar
 from src.apps.visit.models import VisitState
 from src.lib.twilio_client import TwilioClient
 import simplejson as json
@@ -26,9 +26,12 @@ def get_appointments_by_date(year, month, day):
     return appointments
 
 
-def get_by_date(request, year, month, day):
+def get_by_date(request, calendar_id, year, month, day):
+
+    date = datetime(int(year), int(month), int(day))
 
     appointments = get_appointments_by_date(year, month, day).order_by('patient__last_name')
+    calendar = Calendar.objects.get(pk=calendar_id)
 
     visit_states = VisitState.objects.all().order_by('id')
 
@@ -36,8 +39,11 @@ def get_by_date(request, year, month, day):
         request,
         template_name='schedule/view_by_date.html',
         dictionary={
+            'date': date,
             'appointments': appointments,
             'visit_states': visit_states,
+            'calendar': calendar,
+            'page_name': 'appointments'
         }
     )
 
@@ -134,6 +140,7 @@ def call_for_reschedule(request):
         template_name='schedule/call_for_reschedule.html',
         dictionary={
             'appointments': appointments,
+            'page_name': 'calls'
         }
     )
 

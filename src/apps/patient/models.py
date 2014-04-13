@@ -14,10 +14,6 @@ class Patient(models.Model):
 
     last_name = models.CharField(max_length=255, null=True, blank=True)
 
-    billing_address = models.ForeignKey(to='office_admin.BillingAddress', related_name="patient_billing", null=True, blank=True)
-
-    insurance = models.ForeignKey(to='office_admin.Insurance', related_name="patient_insurance", null=True, blank=True)
-
     phone = models.CharField(max_length=25, null=True, blank=True)
 
     dob = models.DateField(null=True, blank=True)

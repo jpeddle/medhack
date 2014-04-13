@@ -24,6 +24,8 @@ class Appointment(models.Model):
 
     end_time = models.DateTimeField()
 
+    pre_checkin_completed = models.BooleanField(default=False)
+
     class Meta:
         db_table = 'appointments'
         app_label = 'schedule'

@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
 import logging
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from src.apps.office_admin.models import BillingAddressForm, InsuranceForm
 from src.apps.schedule.models import Appointment
 from src.apps.visit.models import VisitState
 from src.lib.twilio_client import TwilioClient
@@ -81,4 +82,81 @@ def notify_status(request):
 
     return HttpResponse("Successfully notified %s appointments" % appointments.count())
 
+
+def checkin_billing(request, appointment_id):
+
+    appointment = Appointment.objects.get(pk=appointment_id)
+
+    if request.method == "GET":
+
+        form = BillingAddressForm()
+
+        return render(
+            request,
+            template_name='schedule/checkin_billing.html',
+            dictionary={
+                'appointment': appointment,
+                'form': form,
+            }
+        )
+
+    elif request.method == "POST":
+        form = BillingAddressForm(request.POST or None)
+
+        if form.is_valid():
+            logger.info("BillingAddress is valid")
+            billing_address = form.save(commit=False)
+            billing_address.patient = appointment.patient
+            billing_address.save()
+            billing_address.offices.add(appointment.calendar.doctor.office)
+
+            return HttpResponseRedirect('/appointment/%s/checkin/insurance/' % appointment.id)
+
+
+
+def checkin_insurance(request, appointment_id):
+    appointment = Appointment.objects.get(pk=appointment_id)
+
+    if request.method == "GET":
+
+        form = InsuranceForm()
+
+        return render(
+            request,
+            template_name='schedule/checkin_insurance.html',
+            dictionary={
+                'appointment': appointment,
+                'form': form,
+            }
+        )
+
+    elif request.method == "POST":
+        form = InsuranceForm(request.POST or None)
+
+        if form.is_valid():
+            logger.info("Insurance is valid")
+            insurance = form.save(commit=False)
+            insurance.patient = appointment.patient
+            insurance.save()
+            insurance.offices.add(appointment.calendar.doctor.office)
+
+            return HttpResponseRedirect('/appointment/%s/checkin/complete/' % appointment.id)
+
+
+def checkin_complete(request, appointment_id):
+    appointment = Appointment.objects.get(pk=appointment_id)
+    office = appointment.calendar.doctor.office
+
+    billing_address = appointment.patient.billing_addresses.get(offices=office)
+    insurance = appointment.patient.insurance.get(offices=office)
+
+    return render(
+        request,
+        template_name="schedule/checkin_complete.html",
+        dictionary={
+            'appointment': appointment,
+            'insurance': insurance,
+            'billing_address': billing_address,
+        }
+    )
 

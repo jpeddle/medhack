@@ -1,0 +1,27 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}Checkin | Billing Address{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <form action="/appointment/{{ appointment.id }}/checkin/insurance/" method="post" class="form-horizontal" role="form">
+
+                {% crispy form form.helper %}
+
+            </form>
+
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block bottom_js %}
+
+    <script type="text/javascript">
+    </script>
+
+{% endblock %}

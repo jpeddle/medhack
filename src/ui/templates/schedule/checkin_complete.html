@@ -1,0 +1,58 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}Checkin | Billing Address{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Billing Information</h3>
+
+            <dl class="dl-horizontal">
+                <dt>Address1</dt>
+                <dd>{{ billing_address.address1 }}</dd>
+
+                <dt>Address2</dt>
+                <dd>{{ billing_address.address2 }}</dd>
+
+                <dt>City</dt>
+                <dd>{{ billing_address.city }}</dd>
+
+                <dt>State</dt>
+                <dd>{{ billing_address.state }}</dd>
+
+                <dt>Zip</dt>
+                <dd>{{ billing_address.zip }}</dd>
+
+            </dl>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Billing Information</h3>
+
+            <dl class="dl-horizontal">
+                <dt>Insurance Provider</dt>
+                <dd>{{ insurance.provider }}</dd>
+
+                <dt>Group ID</dt>
+                <dd>{{ insurance.group_id }}</dd>
+
+                <dt>Plan ID</dt>
+                <dd>{{ insurance.plan_id }}</dd>
+            </dl>
+
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block bottom_js %}
+
+    <script type="text/javascript">
+    </script>
+
+{% endblock %}

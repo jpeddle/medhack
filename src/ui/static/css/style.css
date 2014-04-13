@@ -1,0 +1,40 @@
+/*body {*/
+    /*font-family: 'Lato', sans-serif;*/
+    /*font-weight: 400;*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+/*}*/
+
+.page-heading {
+    font-weight: 300;
+    margin: 0;
+    background-color: #f0f0f0;
+    padding: 1.5%;
+    font-size: 24px;
+}
+
+.page-heading span {
+    display: inline-block;
+    width: 45%;
+}
+
+.patient {
+    border-bottom: 1px solid #eee;
+    list-style-type: none;
+    padding: 1.5%;
+    display: block;
+    height: 22px;
+}
+
+.patient .patient-name, .patient .visit-state {
+    width: 46%;
+    float: left;
+}
+
+.patient-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+

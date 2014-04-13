@@ -1,0 +1,70 @@
+{% extends 'layouts/base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block page_title %}View Appointments By Date{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-heading">
+                <span class="first">Patient</span>
+{#                <span>Visit Time</span>#}
+                <span>Status</span>
+            </h1>
+
+
+            <ul class="patients-list list-unstyled">
+                <!-- Patient 1 =====-->
+
+                {% for appointment in appointments %}
+                    <li class="patient">
+                        <ul class="list-unstyled">
+                            <li class="patient-name">{{ appointment.patient.last_name }}, {{ appointment.patient.first_name }}</li>
+{#                            <li>{{ appointment.start_time|date:"h:i A" }} - {{ appointment.end_time|date:"h:i A" }}</li>#}
+                            <li class="visit-state">
+                                <select class="visitStateChange" data-visit-id="{{ appointment.visit.id }}">
+                                    {% for visit_state in visit_states %}
+                                        <option value="{{ visit_state.id }}" {% if appointment.visit.visit_state == visit_state %}selected="selected"{% endif %}>{{ visit_state.state }}</option>
+                                    {% endfor %}
+                                </select>
+                            </li>
+                        </ul>
+                    </li>
+                {% endfor %}
+
+
+            </ul>
+            <!--End of patients.. go home :)-->
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block bottom_js %}
+    <script>
+        $(document).ready(function(){
+            $('select.visitStateChange').on('change', function(e){
+                e.preventDefault();
+
+                var $this = $(this),
+                    visitId = $this.data("visitId"),
+                    visitState = $this.find(":selected").val(),
+                    url = "/visit/"+visitId+"/update/"+visitState+"/";
+
+                console.log($this.data("visitId"));
+                console.log($this.find(":selected").val());
+
+                $.getJSON(url, function(e){
+                    console.log("done");
+                })
+
+            });
+        })
+
+    </script>
+
+
+{% endblock %}

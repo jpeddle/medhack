@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
+from django.conf import global_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -145,6 +146,14 @@ INSTALLED_APPS = (
     'src.apps.schedule',
     'src.apps.visit',
     'src.ui',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    "django.core.context_processors.request",
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(os.path.join(os.path.join(BASE_DIR, 'src'), 'ui', 'templates')),
 )
 
 MIDDLEWARE_CLASSES = (

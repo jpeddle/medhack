@@ -19,7 +19,7 @@ from django.conf import settings
 
 USER_CSV = 'appointments.csv'
 
-EASTERN_TIMEZONE = pytz.timezone('US/Eastern')
+TZ = settings.PYTZ_TIMEZONE
 
 #pipe char
 DELIMITER = '|'
@@ -53,8 +53,8 @@ def appointment_dict_to_obj(data_dict):
         patient=patient,
         calendar=doctor.calendar.get(),
         visit=visit,
-        start_time=EASTERN_TIMEZONE.localize(datetime.strptime(data_dict['start_time'], '%m/%d/%y %I:%M %p')),
-        end_time=EASTERN_TIMEZONE.localize(datetime.strptime(data_dict['end_time'], '%m/%d/%y %I:%M %p')),
+        start_time=TZ.localize(datetime.strptime(data_dict['start_time'], '%m/%d/%y %I:%M %p')),
+        end_time=TZ.localize(datetime.strptime(data_dict['end_time'], '%m/%d/%y %I:%M %p')),
     )
 
     appointment.save()

@@ -15,6 +15,8 @@ from django.conf import global_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import pytz
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # <BASE_DIR>/data/
@@ -185,7 +187,10 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = 'US/Eastern'
+PYTZ_TIMEZONE = pytz.timezone(TIME_ZONE)
+
+SEND_TWILIO = False
 
 USE_I18N = True
 

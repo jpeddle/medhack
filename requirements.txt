@@ -5,7 +5,9 @@ django-crispy-forms==1.4.0
 django-devserver==0.7.0
 django-extensions==1.2.5
 gunicorn==18.0
+httplib2==0.8
 pytz==2014.2
 simplejson==3.4.0
 six==1.6.1
+twilio==3.6.6
 wsgiref==0.1.2

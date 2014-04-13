@@ -12,6 +12,10 @@ urlpatterns = patterns('',
 
     url(r'^appointments/(?P<year>\d+)/(?P<month>\d+)/(?P<day>\d+)/$', 'src.apps.schedule.views.get_by_date'),
 
+    url(r'^appointments/notify-daily/$', 'src.apps.schedule.views.notify_daily'),
+
+    url(r'^appointments/notify-status/$', 'src.apps.schedule.views.notify_status'),
+
     url(r'^visit/(?P<visit_id>\d+)/update/(?P<visit_state_id>\d+)/$', 'src.apps.visit.views.update'),
 
 

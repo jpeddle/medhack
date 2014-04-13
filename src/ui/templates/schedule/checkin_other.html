@@ -1,17 +1,18 @@
 {% extends "layouts/base.html" %}
 {% load crispy_forms_tags %}
 
-{% block page_title %}Checkin | Insurance{% endblock %}
+{% block page_title %}Checkin | Other{% endblock %}
 
 {% block content %}
 
     <div class="row">
         <div class="col-md-12">
-            <form action="/appointment/{{ appointment.id }}/checkin/insurance/" method="post" class="form-horizontal" role="form">
+            <form action="/appointment/{{ appointment.id }}/checkin/other/" method="post" class="form-horizontal" role="form">
 
                 {% crispy form form.helper %}
 
             </form>
+
 
         </div>
     </div>

@@ -40,7 +40,7 @@ class InsuranceForm(forms.ModelForm):
                 Field('plan_id'),
             ),
             FormActions(
-                StrictButton('Submit', type='submit', css_class='btn btn-primary pull-right')
+                StrictButton('Next', type='submit', css_class='btn btn-primary pull-right')
             )
         )
 

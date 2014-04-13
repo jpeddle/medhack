@@ -40,9 +40,9 @@ def upcoming_appointments(request):
 
         elif cur.visit.visit_state.pk == 3:
             # only check exam rooms
-            exam_room_queue = Appointment.objects.filter(calendar__doctor=cur.calendar.doctor, visit__visit_state=3, visit__last_updated__lt=visit_last_updated).count()
+            cur.exam_room_queue = Appointment.objects.filter(calendar__doctor=cur.calendar.doctor, visit__visit_state=3, visit__last_updated__lt=visit_last_updated).count()
 
-            print "num in exam room: %s" % exam_room_queue
+            print "num in exam room: %s" % cur.exam_room_queue
 
     return render(
         request,

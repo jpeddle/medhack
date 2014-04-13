@@ -39,6 +39,8 @@ urlpatterns = patterns('',
 
     url(r'^appointment/(?P<appointment_id>\d+)/checkin/insurance/$', 'src.apps.schedule.views.checkin_insurance'),
 
+    url(r'^appointment/(?P<appointment_id>\d+)/checkin/other/$', 'src.apps.schedule.views.checkin_other'),
+
     url(r'^appointment/(?P<appointment_id>\d+)/checkin/complete/$', 'src.apps.schedule.views.checkin_complete'),
 
     url(r'^visit/(?P<visit_id>\d+)/update/(?P<visit_state_id>\d+)/$', 'src.apps.visit.views.update'),

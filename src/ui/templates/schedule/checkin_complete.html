@@ -33,7 +33,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h3>Billing Information</h3>
+            <h3>Insuance Information</h3>
 
             <dl class="dl-horizontal">
                 <dt>Insurance Provider</dt>
@@ -44,6 +44,22 @@
 
                 <dt>Plan ID</dt>
                 <dd>{{ insurance.plan_id }}</dd>
+            </dl>
+
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Other Information</h3>
+
+            <dl class="dl-horizontal">
+                <dt>Change in Symptoms</dt>
+                <dd>{{ appointment.change_in_symptoms }}</dd>
+
+                <dt>Other Questions</dt>
+                <dd>{{ appointment.patient_questions }}</dd>
             </dl>
 
 

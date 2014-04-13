@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from src.apps.office_admin.models import BillingAddressForm, InsuranceForm
-from src.apps.schedule.models import Appointment, Calendar
+from src.apps.schedule.models import Appointment, Calendar, AppointmentForm
 from src.apps.visit.models import VisitState
 from src.lib.twilio_client import TwilioClient
 import simplejson as json
@@ -171,6 +171,37 @@ def checkin_insurance(request, appointment_id):
             insurance.patient = appointment.patient
             insurance.save()
             insurance.offices.add(appointment.calendar.doctor.office)
+
+            appointment.pre_checkin_completed = True
+            appointment.save()
+
+            return HttpResponseRedirect('/appointment/%s/checkin/other/' % appointment.id)
+
+
+def checkin_other(request, appointment_id):
+    appointment = Appointment.objects.get(pk=appointment_id)
+
+    if request.method == "GET":
+
+        form = AppointmentForm()
+
+        return render(
+            request,
+            template_name='schedule/checkin_other.html',
+            dictionary={
+                'appointment': appointment,
+                'form': form,
+            }
+        )
+
+    elif request.method == "POST":
+        form = AppointmentForm(request.POST)
+
+        if form.is_valid():
+            logger.info("Appointment is valid")
+
+            appointment.change_in_symptoms = form.cleaned_data['change_in_symptoms']
+            appointment.patient_questions = form.cleaned_data['patient_questions']
 
             appointment.pre_checkin_completed = True
             appointment.save()

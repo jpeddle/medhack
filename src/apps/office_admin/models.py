@@ -90,7 +90,7 @@ class BillingAddressForm(forms.ModelForm):
                 Field('zip'),
             ),
             FormActions(
-                StrictButton('Submit', type='submit', css_class='btn btn-primary pull-right')
+                StrictButton('Next', type='submit', css_class='btn btn-primary pull-right')
             )
         )
 

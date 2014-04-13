@@ -22,6 +22,8 @@ class Patient(models.Model):
 
     sex = models.CharField(max_length=1, choices=SEXES, null=True, blank=True)
 
+    user = models.ForeignKey(to='auth.User', related_name='patients', null=True, blank=True)
+
     def __unicode__(self):
         return "%s: %s %s" % (self.pk, self.first_name, self.last_name)
 

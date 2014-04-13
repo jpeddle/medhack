@@ -1,0 +1,54 @@
+{% extends 'layouts/base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block page_title %}Insurance Information{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-heading">Insurance Information</h1>
+
+
+            <table class="table table-striped">
+                <tbody>
+                    {% for patient in patients.all %}
+                        {% for insurance in patient.insurance.all %}
+
+                            <tr>
+                                <td>{{ insurance.provider }}</td>
+                                <td>{{ insurance.group_id }}</td>
+                                <td>{{ insurance.plan_id }}</td>
+                            </tr>
+
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+
+
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th>Group ID</th>
+                        <th>Plan ID</th>
+                    </tr>
+                </thead>
+            </table>
+
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block bottom_js %}
+    <script>
+        $(document).ready(function(){
+        })
+
+    </script>
+
+
+{% endblock %}

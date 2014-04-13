@@ -10,6 +10,21 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
+    # account info
+    # login
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'accounts/login.html'}, name='login'),
+
+    #logout
+    url(r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
+
+    url(r'^patient/appointments/$', 'src.apps.patient.views.upcoming_appointments'),
+
+    url(r'^patient/family/$', 'src.apps.patient.views.family_members'),
+
+    url(r'^patient/billing/$', 'src.apps.patient.views.billing_information'),
+
+    url(r'^patient/insurance/$', 'src.apps.patient.views.insurance_information'),
+
     url(r'^appointments/(?P<year>\d+)/(?P<month>\d+)/(?P<day>\d+)/$', 'src.apps.schedule.views.get_by_date'),
 
     url(r'^appointments/notify-daily/$', 'src.apps.schedule.views.notify_daily'),

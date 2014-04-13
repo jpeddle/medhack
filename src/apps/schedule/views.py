@@ -140,6 +140,9 @@ def checkin_insurance(request, appointment_id):
             insurance.save()
             insurance.offices.add(appointment.calendar.doctor.office)
 
+            appointment.pre_checkin_completed = True
+            appointment.save()
+
             return HttpResponseRedirect('/appointment/%s/checkin/complete/' % appointment.id)
 
 

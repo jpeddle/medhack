@@ -16,7 +16,7 @@ class Appointment(models.Model):
 
     calendar = models.ForeignKey(to=Calendar, related_name='appointment')
 
-    patient = models.ForeignKey(to='patient.Patient')
+    patient = models.ForeignKey(to='patient.Patient', related_name='appointments')
 
     visit = models.ForeignKey(to='visit.Visit')
 

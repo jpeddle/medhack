@@ -8,6 +8,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspa
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "medhack.settings")
 
+from django.contrib.auth.models import User
 from src.apps.patient.models import Patient
 # DO NOT REMOVE THIS
 from src.apps.office_admin.models import BillingAddress, Insurance
@@ -47,6 +48,11 @@ def patient_dict_to_obj(data_dict):
     )
 
     patient.save()
+
+    if User.objects.filter(first_name=patient.first_name).exists():
+        patient.user = User.objects.get(first_name=patient.first_name)
+        patient.save()
+
 
 
 def create_patients(verbose=False):

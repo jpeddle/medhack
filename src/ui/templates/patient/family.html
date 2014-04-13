@@ -1,0 +1,57 @@
+{% extends 'layouts/base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block page_title %}Family Information{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-heading">Family Members</h1>
+
+
+            <table class="table table-striped">
+                <tbody>
+                    {% for patient in patients.all %}
+
+                        <tr>
+                            <td>{{ patient.first_name }}</td>
+                            <td>{{ patient.last_name }}</td>
+                            <td>{{ patient.dob }}</td>
+                            <td>{{ patient.sex|upper }}</td>
+                            <td>{{ patient.phone }}</td>
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>DOB</th>
+                        <th>Sex</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+            </table>
+
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block bottom_js %}
+    <script>
+        $(document).ready(function(){
+        })
+
+    </script>
+
+
+{% endblock %}

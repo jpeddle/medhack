@@ -1,0 +1,62 @@
+{% extends 'layouts/base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block page_title %}Billing Information{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-heading">Billing Information</h1>
+
+
+            <table class="table table-striped">
+                <tbody>
+                    {% for patient in patients.all %}
+                        {% for billing in patient.billing_addresses.all %}
+
+                            <tr>
+                                <td>{{ patient.first_name }}</td>
+                                <td>{{ patient.last_name }}</td>
+                                <td>{{ billing.address1 }}</td>
+                                <td>{{ billing.address2 }}</td>
+                                <td>{{ billing.city }}</td>
+                                <td>{{ billing.state }}</td>
+                                <td>{{ billing.zip }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+
+                </tbody>
+
+
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Address 1</th>
+                        <th>Address 2</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
+                    </tr>
+                </thead>
+            </table>
+
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block bottom_js %}
+    <script>
+        $(document).ready(function(){
+        })
+
+    </script>
+
+
+{% endblock %}

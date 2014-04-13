@@ -5,7 +5,7 @@ from twilio.rest import TwilioRestClient
 
 TZ = settings.PYTZ_TIMEZONE
 
-DAILY_MSG = "Reminder: Your appointment with Dr. %s is at %s today.  Pre-register with CalMD to expedite your check-in: http://bit.ly/1lVulKg"
+DAILY_MSG = "Reminder: Your appointment with Dr. %s is at %s today.  Pre-register with CALMD to expedite your check-in: http://bit.ly/1lVulKg"
 
 ALERT_MSG = "Notice: Your %s appt with Dr. %s is delayed, we are behind schedule about %s minutes, reply yes to receive a call within 30 mins to reschedule."
 

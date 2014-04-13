@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+{% load filters %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block page_title %}View Appointments By Date{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-heading">Call for Reschedule</h1>
+
+
+                <table class="table table-striped">
+                    <tbody>
+                        {% for appointment in appointments %}
+
+                            <tr id="tr-{{ appointment.id }}">
+                                <td>{{ appointment.patient.last_name }}, {{ appointment.patient.first_name }}</td>
+                                <td>Dr. {{ appointment.calendar.doctor.last_name }}</td>
+                                <td>{{ appointment.start_time|date:"m/d/Y h:i A" }} - {{ appointment.end_time|date:"h:i A" }}</td>
+                                <td>{{ appointment.patient.phone }}</td>
+                                <td>{{ appointment.call_for_reschedule_time|date:"m/d/Y h:i A" }}</td>
+                                <td><a href="/appointment/{{ appointment.id }}/mark-rescheduled/" data-appointment-id="{{ appointment.id }}" class="mark-rescheduled"><i class="glyphicon glyphicon-remove"></i></a></td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                    <thead>
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>Doctor Scheduled</th>
+                            <th>Appointment Time</th>
+                            <th>Patient Phone</th>
+                            <th>Call By</th>
+                            <th>Mark Called</th>
+                        </tr>
+                    </thead>
+                </table>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block bottom_js %}
+    <script>
+        $(document).ready(function(){
+
+            $('a.mark-rescheduled').on('click', function(e){
+                e.preventDefault();
+
+                var $this = $(this),
+                    url = $this.attr('href'),
+                    appointmentId = $this.data("appointmentId");
+
+                $.getJSON(url, function(data){
+                    console.log("done: " + appointmentId);
+                    $("#tr-"+appointmentId).remove();
+                })
+            })
+
+        })
+
+    </script>
+
+
+{% endblock %}

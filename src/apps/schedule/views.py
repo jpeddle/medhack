@@ -7,6 +7,7 @@ from src.apps.office_admin.models import BillingAddressForm, InsuranceForm
 from src.apps.schedule.models import Appointment
 from src.apps.visit.models import VisitState
 from src.lib.twilio_client import TwilioClient
+import simplejson as json
 
 logger = logging.getLogger(settings.MEDHACK_LOG)
 
@@ -72,15 +73,27 @@ def notify_status(request):
     minutes_behind = int((DEMO_ALERT - latest_time).total_seconds()/60)
     logger.info("Minutes behind: %s" % minutes_behind)
 
-
-
     for appointment in appointments:
         start_time = TZ.normalize(appointment.start_time).strftime("%I:%M %p")
         logger.info("%s: %s %s" % (appointment.id, start_time, appointment.visit.visit_state.state))
 
         twilio.alert_status(appointment, minutes_behind)
 
+        appointment.call_for_reschedule = True
+        appointment.call_for_reschedule_time = DEMO_ALERT + timedelta(minutes=30)
+        appointment.save()
+
     return HttpResponse("Successfully notified %s appointments" % appointments.count())
+
+
+def mark_rescheduled(request, appointment_id):
+    appointment = Appointment.objects.get(pk=appointment_id)
+
+    appointment.call_for_reschedule = False
+    appointment.call_for_reschedule_time = None
+    appointment.save()
+
+    return HttpResponse(json.dumps({'success': True}), content_type="application/json")
 
 
 def checkin_billing(request, appointment_id):
@@ -111,6 +124,18 @@ def checkin_billing(request, appointment_id):
             billing_address.offices.add(appointment.calendar.doctor.office)
 
             return HttpResponseRedirect('/appointment/%s/checkin/insurance/' % appointment.id)
+
+
+def call_for_reschedule(request):
+    appointments = Appointment.objects.filter(call_for_reschedule=True)
+
+    return render(
+        request,
+        template_name='schedule/call_for_reschedule.html',
+        dictionary={
+            'appointments': appointments,
+        }
+    )
 
 
 

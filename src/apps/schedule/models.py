@@ -26,6 +26,10 @@ class Appointment(models.Model):
 
     pre_checkin_completed = models.BooleanField(default=False)
 
+    call_for_reschedule = models.BooleanField(default=False)
+
+    call_for_reschedule_time = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         db_table = 'appointments'
         app_label = 'schedule'

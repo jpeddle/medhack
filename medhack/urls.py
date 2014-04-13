@@ -31,6 +31,10 @@ urlpatterns = patterns('',
 
     url(r'^appointments/notify-status/$', 'src.apps.schedule.views.notify_status'),
 
+    url(r'^appointments/call-for-reschedule/$', 'src.apps.schedule.views.call_for_reschedule'),
+
+    url(r'^appointment/(?P<appointment_id>\d+)/mark-rescheduled/$', 'src.apps.schedule.views.mark_rescheduled'),
+
     url(r'^appointment/(?P<appointment_id>\d+)/checkin/billing/$', 'src.apps.schedule.views.checkin_billing'),
 
     url(r'^appointment/(?P<appointment_id>\d+)/checkin/insurance/$', 'src.apps.schedule.views.checkin_insurance'),
@@ -38,5 +42,7 @@ urlpatterns = patterns('',
     url(r'^appointment/(?P<appointment_id>\d+)/checkin/complete/$', 'src.apps.schedule.views.checkin_complete'),
 
     url(r'^visit/(?P<visit_id>\d+)/update/(?P<visit_state_id>\d+)/$', 'src.apps.visit.views.update'),
+
+    url(r'^$', 'src.apps.common.views.home_view',)
 
 )

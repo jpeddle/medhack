@@ -18,4 +18,10 @@ fi
 #python -u bin/setup/create_index.py
 echo "no" | python manage.py syncdb
 python -u bin/setup/create_users.py
-#python -u bin/setup/create_classifications.py
+python -u bin/setup/create_patients.py
+python -u bin/setup/create_offices.py
+python -u bin/setup/create_doctors.py
+python -u bin/setup/create_calendars.py
+
+python -u bin/setup/create_visit_states.py
+python -u bin/setup/create_appointments.py

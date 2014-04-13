@@ -9,6 +9,9 @@ class Insurance(models.Model):
 
     plan_id = models.CharField(max_length=255, null=False, blank=False)
 
+    class Meta:
+        db_table = 'insurance'
+        app_label = 'office_admin'
 
 class BillingAddress(models.Model):
 
@@ -22,3 +25,6 @@ class BillingAddress(models.Model):
 
     zip = models.CharField(max_length=255, null=True, blank=True)
 
+    class Meta:
+        db_table = 'billing_addresses'
+        app_label = 'office_admin'

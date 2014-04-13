@@ -1,5 +1,5 @@
 from django.contrib import admin
-from src.apps.admin.models import BillingAddress, Insurance
+from src.apps.office_admin.models import BillingAddress, Insurance
 
 class BillingAddressAdmin(admin.ModelAdmin):
     pass

@@ -17,6 +17,10 @@ class Office(models.Model):
 
     number_exam_rooms = models.IntegerField()
 
+    class Meta:
+        db_table = 'offices'
+        app_label = 'office'
+
 
 class Doctor(models.Model):
 
@@ -24,5 +28,10 @@ class Doctor(models.Model):
 
     last_name = models.CharField(max_length=255, null=True, blank=True)
 
+    office = models.ForeignKey(to=Office, related_name='doctors', null=False, blank=False)
+
     about = models.TextField()
 
+    class Meta:
+        db_table = 'doctors'
+        app_label = 'office'

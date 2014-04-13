@@ -139,7 +139,7 @@ INSTALLED_APPS = (
     'django_extensions',
 
     # Our apps
-    'src.apps.admin',
+    'src.apps.office_admin',
     'src.apps.office',
     'src.apps.patient',
     'src.apps.schedule',

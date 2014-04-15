@@ -13,9 +13,9 @@ logger = logging.getLogger(settings.MEDHACK_LOG)
 
 TZ = settings.PYTZ_TIMEZONE
 
-DEMO_DATETIME = TZ.localize(datetime(2014, 4, 2))
+DEMO_DATETIME = TZ.localize(datetime(2014, 4, 13))
 
-DEMO_ALERT = TZ.localize(datetime(2014, 4, 2, 13, 30))
+DEMO_ALERT = TZ.localize(datetime(2014, 4, 13, 13, 30))
 
 def get_appointments_by_date(year, month, day):
     appointments = Appointment.objects.filter(
@@ -56,7 +56,6 @@ def notify_daily(request):
     twilio.alert_daily([appointments.first()])
 
     return HttpResponse("Successfully notified %s appointments" % appointments.count())
-
 
 
 def notify_status(request):

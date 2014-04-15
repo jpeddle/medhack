@@ -56,8 +56,10 @@
                     </ul>
                 {% else %}
                     <ul class="nav navbar-nav">
-                        <li {% if page_name == "appointments" %}class="active"{% endif %}><a href="/appointments/1/2014/04/02/">Demo Appointments</a></li>
+                        <li {% if page_name == "appointments" %}class="active"{% endif %}><a href="/appointments/1/2014/04/13/">Demo Appointments</a></li>
                         <li {% if page_name == "calls" %}class="active"{% endif %}><a href="/appointments/call-for-reschedule/">To Be Rescheduled</a></li>
+                        <li><a href="/appointments/notify-daily/" class="ajax">Notify Daily</a></li>
+                        <li><a href="/appointments/notify-status/" class="ajax">Notify Status</a></li>
                     </ul>
                 {% endif %}
 
@@ -107,7 +109,18 @@
 
     <!-- jQuery Required embeds -->
     <script type="text/javascript">
+        $(document).ready(function(){
+            $('a.ajax').on('click', function(e){
+                e.preventDefault();
+                var $this = $(this),
+                    url = $this.attr('href');
 
+                $.get(url, function(data){
+                    alert(data);
+                    $this.remove();
+                })
+            })
+        })
     </script>
 
     {% block bottom_js %}{% endblock %}

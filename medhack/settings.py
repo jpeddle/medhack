@@ -190,7 +190,7 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'US/Eastern'
 PYTZ_TIMEZONE = pytz.timezone(TIME_ZONE)
 
-SEND_TWILIO = False
+SEND_TWILIO = True
 
 USE_I18N = True
 

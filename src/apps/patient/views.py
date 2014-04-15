@@ -6,7 +6,7 @@ from src.apps.schedule.models import Appointment
 
 TZ = settings.PYTZ_TIMEZONE
 
-DEMO_DATETIME = TZ.localize(datetime(2014, 4, 2))
+DEMO_DATETIME = TZ.localize(datetime(2014, 4, 13))
 
 @login_required
 def upcoming_appointments(request):
